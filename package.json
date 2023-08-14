@@ -1,0 +1,19 @@
+{
+  "name": "tsheep-cli",
+  "version": "1.0.2",
+  "description": "",
+  "bin": {
+    "tsheep": "bin/index.js"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dedent": "^1.5.1",
+    "tsheep-cli-lib": "^1.1.0",
+    "yargs": "^17.7.2"
+  }
+}
