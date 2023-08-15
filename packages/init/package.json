@@ -1,0 +1,19 @@
+{
+  "name": "@tsheep.com/init",
+  "version": "0.0.0",
+  "description": "init command",
+  "author": "Tsheep <9987909+Tsheep_999@user.noreply.gitee.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "node ./__tests__/init.test.js"
+  }
+}
