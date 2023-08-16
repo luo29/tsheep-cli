@@ -1,6 +1,6 @@
 "use strict";
-const Command = require("@tsheep.com/command");
-const { log } = require("@tsheep.com/utils");
+import Command from "@tsheep.com/command";
+import { log } from "@tsheep.com/utils";
 class InitCommand extends Command {
   get command() {
     return "init [name]";
@@ -12,7 +12,7 @@ class InitCommand extends Command {
     return [["-f, --force", "是否强制更新", false]];
   }
   action([name, opts]) {
-    log.verbose("init", name, opts);
+    log.info("init", name, opts);
   }
   preAction() {
     // console.log("pre");
@@ -24,4 +24,4 @@ class InitCommand extends Command {
 function Init(instance) {
   return new InitCommand(instance);
 }
-module.exports = Init;
+export default Init;

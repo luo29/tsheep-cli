@@ -1,3 +1,3 @@
-const log = require("./log");
-const isDebug = require("./isDebug");
-module.exports = { log, isDebug };
+import log from "./log.js";
+import isDebug from "./isDebug.js";
+export { log, isDebug };

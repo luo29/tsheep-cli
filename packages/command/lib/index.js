@@ -40,4 +40,4 @@ class Command {
     // empty
   }
 }
-module.exports = Command;
+export default  Command;

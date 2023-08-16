@@ -1,15 +1,20 @@
-const commander = require("commander");
-const semver = require("semver");
-const createInitCommand = require("@tsheep.com/init");
-const { log, isDebug } = require("@tsheep.com/utils");
-const { program } = commander;
-const pkg = require("../package.json");
+import { program } from "commander";
+import Semver from "Semver";
+import chalk from "chalk";
+import path from "node:path";
+import { dirname } from "dirname-filename-esm";
+import createInitCommand from "@tsheep.com/init";
+import { log, isDebug } from "@tsheep.com/utils";
+import fse from "fs-extra";
+const __filename = dirname(import.meta);
+const pkgPath = path.resolve(__filename, "../package.json");
+const pkg = fse.readJSONSync(pkgPath);;
 const LOWEST_NODE_VERSION = "14.0.0";
 function checkNodeVersion() {
   log.success("node version", process.version);
-  if (!semver.gte(process.version, LOWEST_NODE_VERSION)) {
+  if (!Semver.gte(process.version, LOWEST_NODE_VERSION)) {
     throw new Error(
-      `tsheep-cli需要安装${LOWEST_NODE_VERSION}以上的版本的Node.js`
+      chalk.red(`tsheep-cli需要安装${LOWEST_NODE_VERSION}以上的版本的Node.js`)
     );
   }
 }
@@ -25,7 +30,7 @@ process.on("uncaughtException", (e) => {
     console.log(e.message);
   }
 });
-module.exports = function (argv) {
+export default function (argv) {
   log.success("version", pkg.version);
   program
     .name(Object.keys(pkg.bin)[0])
@@ -35,4 +40,4 @@ module.exports = function (argv) {
     .hook("preAction", preAction);
   createInitCommand(program);
   program.parse(process.argv);
-};
+}
