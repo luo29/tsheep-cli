@@ -22,5 +22,8 @@
   },
   "bugs": {
     "url": "https://github.com/luo29/tsheep-cli/issues"
+  },
+  "dependencies": {
+    "npmlog": "^7.0.1"
   }
 }

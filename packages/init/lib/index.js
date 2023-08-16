@@ -15,10 +15,10 @@ class InitCommand extends Command {
     log.verbose("init", name, opts);
   }
   preAction() {
-    console.log("pre");
+    // console.log("pre");
   }
   postAction() {
-    console.log("post");
+    // console.log("post");
   }
 }
 function Init(instance) {

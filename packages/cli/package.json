@@ -23,6 +23,6 @@
   "dependencies": {
     "commander": "^11.0.0",
     "import-local": "^3.1.0",
-    "npmlog": "^7.0.1"
+    "semver": "^7.5.4"
   }
 }

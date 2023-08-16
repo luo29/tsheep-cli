@@ -1,3 +1,3 @@
 const log = require("./log");
-
-module.exports = log;
+const isDebug = require("./isDebug");
+module.exports = { log, isDebug };
