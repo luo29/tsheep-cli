@@ -1,5 +1,6 @@
 "use strict";
 const Command = require("@tsheep.com/command");
+const { log } = require("@tsheep.com/utils");
 class InitCommand extends Command {
   get command() {
     return "init [name]";
@@ -11,7 +12,7 @@ class InitCommand extends Command {
     return [["-f, --force", "是否强制更新", false]];
   }
   action([name, opts]) {
-    console.log("init", name, opts);
+    log.verbose("init", name, opts);
   }
   preAction() {
     console.log("pre");
