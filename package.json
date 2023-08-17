@@ -11,5 +11,6 @@
   },
   "devDependencies": {
     "lerna": "^7.1.5"
-  }
+  },
+  "type": "module"
 }

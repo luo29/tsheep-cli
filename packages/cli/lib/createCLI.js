@@ -1,7 +1,7 @@
 import path from "node:path";
 import { program } from "commander";
 import fse from "fs-extra";
-import Semver from "Semver";
+import Semver from "semver";
 import chalk from "chalk";
 import { log } from "@tsheep.com/utils";
 import { dirname } from "dirname-filename-esm";
