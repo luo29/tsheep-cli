@@ -13,6 +13,11 @@ class InitCommand extends Command {
   }
   action([name, opts]) {
     log.info("init", name, opts);
+    new Promise((resolve) => {
+      resolve();
+    }).then(() => {
+      throw new Error("error from promise");
+    });
   }
   preAction() {
     // console.log("pre");
