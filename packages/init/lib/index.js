@@ -3,6 +3,7 @@ import Command from "@tsheep.com/command";
 import { log } from "@tsheep.com/utils";
 import createTemplate from "./createTemplate.js";
 import downloadTemplate from "./downloadTemplate.js";
+import installTemplate from "./installTemplate.js";
 class InitCommand extends Command {
   get command() {
     return "init [name]";
@@ -20,6 +21,7 @@ class InitCommand extends Command {
     // 2、下载项目模板至缓存目录
     await downloadTemplate(selectedTemplate);
     // 3、安装项目模板至项目目录
+    await installTemplate(selectedTemplate, opts);
   }
   preAction() {
     // console.log("pre");
