@@ -4,6 +4,12 @@ import { log } from "@tsheep.com/utils";
 import createTemplate from "./createTemplate.js";
 import downloadTemplate from "./downloadTemplate.js";
 import installTemplate from "./installTemplate.js";
+
+/**
+ * examples：
+ * t-tsheep init
+ * t-tsheep init aaa --type project -tp template-react18 --force
+ */
 class InitCommand extends Command {
   get command() {
     return "init [name]";
@@ -12,7 +18,11 @@ class InitCommand extends Command {
     return "init project";
   }
   get options() {
-    return [["-f, --force", "是否强制更新", false]];
+    return [
+      ["-f, --force", "是否强制更新", false],
+      ["-t, --type <type>", "项目类型(值:project/page)"],
+      ["-tp, --template <template>", "模板名称"],
+    ];
   }
   async action([name, opts]) {
     log.info("init", name, opts);
