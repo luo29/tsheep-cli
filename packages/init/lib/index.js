@@ -1,6 +1,7 @@
 "use strict";
 import Command from "@tsheep.com/command";
 import { log } from "@tsheep.com/utils";
+import createTemplate from "./createTemplate.js";
 class InitCommand extends Command {
   get command() {
     return "init [name]";
@@ -13,11 +14,10 @@ class InitCommand extends Command {
   }
   action([name, opts]) {
     log.info("init", name, opts);
-    new Promise((resolve) => {
-      resolve();
-    }).then(() => {
-      throw new Error("error from promise");
-    });
+    // 1、选择项目模板，生成项目信息
+    createTemplate(name, opts);
+    // 2、下载项目模板至缓存目录
+    // 3、安装项目模板至项目目录
   }
   preAction() {
     // console.log("pre");
