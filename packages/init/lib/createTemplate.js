@@ -1,3 +1,5 @@
+import { homedir } from "node:os";
+import path from "node:path";
 import { log, makeInput, makeList, getLatestVersion } from "@tsheep.com/utils";
 const ADD_TYPE_PROJECT = "project";
 const ADD_TYPE_PAGE = "page";
@@ -19,6 +21,7 @@ const ADD_TYPE = [
   { name: "项目", value: ADD_TYPE_PROJECT },
   { name: "页面", value: ADD_TYPE_PAGE },
 ];
+const TEMP_HOME = ".tsheep-cli";
 function getAddType() {
   return makeList({
     choices: ADD_TYPE,
@@ -32,6 +35,12 @@ function getAddName() {
   return makeInput({
     message: "请输入项目名称",
     defaultValue: "",
+    validate(v) {
+      if (v.length > 0) {
+        return true;
+      }
+      return "项目名称必须输入！";
+    },
   });
 }
 
@@ -43,25 +52,27 @@ function getAddTemplate() {
   });
 }
 
+// 安装缓存目录
+function makeTargetPath() {
+  return path.resolve(`${homedir()}/${TEMP_HOME}`, "addTemplate");
+}
+
 export default async function createTemplate(name, opts) {
   // 获取创建类型
   const addType = await getAddType();
-  log.info("addType", addType);
   if (addType === ADD_TYPE_PROJECT) {
     const addName = await getAddName();
-    log.info("addName", addName);
     const addTemplate = await getAddTemplate();
-    log.info("addTemplate", addTemplate);
     const selectedTemplate = ADD_TEMPLATE.find((_) => _.value === addTemplate);
-    log.info("selectedTemplate", selectedTemplate);
     // 获取最新版本号
     const latestVersion = await getLatestVersion(selectedTemplate.npmName);
-    log.info("latestVersion", latestVersion);
     selectedTemplate.version = latestVersion;
+    const targetPath = makeTargetPath();
     return {
       type: addType,
       name: addName,
       template: selectedTemplate,
+      targetPath,
     };
   }
 }
