@@ -16,6 +16,12 @@ const ADD_TEMPLATE = [
     npmName: "@tsheep.com/template-react18",
     version: "1.0.0",
   },
+  {
+    name: "vue-element-admin项目模板",
+    value: "template-vue-element-admin",
+    npmName: "@tsheep.com/template-vue-element-admin",
+    version: "1.0.0",
+  },
 ];
 const ADD_TYPE = [
   { name: "项目", value: ADD_TYPE_PROJECT },
