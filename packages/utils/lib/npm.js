@@ -20,4 +20,5 @@ export function getLatestVersion(npmName) {
     }
     return data["dist-tags"].latest;
   });
+  //   return "1.0.0";
 }
