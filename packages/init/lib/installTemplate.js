@@ -2,10 +2,22 @@ import path from "node:path";
 import fse from "fs-extra";
 import { pathExistsSync } from "path-exists";
 import ora from "ora";
-import { log } from "@tsheep.com/utils";
+import ejs from "ejs";
+import { glob } from "glob";
+import { log, printErrorLog, makeList, makeInput } from "@tsheep.com/utils";
 
 function getCacheFilePath(targetPath, template) {
   return path.resolve(targetPath, "node_modules", template.npmName, "template");
+}
+
+function getPluginFilePath(targetPath, template) {
+  return path.resolve(
+    targetPath,
+    "node_modules",
+    template.npmName,
+    "plugins",
+    "index.js"
+  );
 }
 
 function copyFile(targetPath, template, installDir) {
@@ -19,7 +31,47 @@ function copyFile(targetPath, template, installDir) {
   log.success("模板拷贝成功！");
 }
 
-export default function installTemplate(selectedTemplate, opts) {
+async function ejsRender(targetPath, installDir, template, name) {
+  log.verbose("ejsRender", installDir, template);
+  const { ignore } = template;
+  // 执行插件
+  let data;
+  const pluginPath = getPluginFilePath(targetPath, template);
+  if (pathExistsSync(pluginPath)) {
+    const pluginFn = (await import(`file:///${pluginPath}`)).default;
+    const api = {
+      makeList,
+      makeInput,
+    };
+    data = await pluginFn(api);
+  }
+  const ejsData = {
+    data: {
+      name,
+      ...data,
+    },
+  };
+  glob
+    .glob("**", {
+      cwd: installDir,
+      nodir: true,
+      ignore: [...ignore, "**/node_modules/**"],
+    })
+    .then((files) => {
+      files.forEach((file) => {
+        const filePath = path.join(installDir, file);
+        ejs.renderFile(filePath, ejsData, (err, result) => {
+          if (!err) {
+            fse.writeFileSync(filePath, result);
+          } else {
+            printErrorLog(err);
+          }
+        });
+      });
+    });
+}
+
+export default async function installTemplate(selectedTemplate, opts) {
   const { force = false } = opts;
   const { targetPath, name, template } = selectedTemplate;
   const rootDir = process.cwd();
@@ -37,4 +89,5 @@ export default function installTemplate(selectedTemplate, opts) {
     fse.ensureDirSync(installDir);
   }
   copyFile(targetPath, template, installDir);
+  await ejsRender(targetPath, installDir, template, name);
 }

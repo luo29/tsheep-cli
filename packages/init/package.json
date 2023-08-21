@@ -18,8 +18,10 @@
   },
   "type": "module",
   "dependencies": {
+    "ejs": "^3.1.9",
     "execa": "^8.0.0",
     "fs-extra": "^11.1.1",
+    "glob": "^10.3.3",
     "ora": "^7.0.1",
     "path-exists": "^5.0.0"
   }
