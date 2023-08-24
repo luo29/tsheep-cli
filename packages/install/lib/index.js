@@ -150,7 +150,7 @@ class InstallCommand extends Command {
       const params = {
         q: this.q + (this.language ? `+language:${this.language}` : ""),
         order: "desc",
-        sort: "stars",
+        // sort: "stars",
         per_page: this.per_page,
         page: this.page,
       };
@@ -178,7 +178,7 @@ class InstallCommand extends Command {
         q: this.q,
         // language: this.language,
         order: "desc",
-        sort: "stars_count",
+        // sort: "stars_count",
         per_page: this.per_page,
         page: this.page,
       };

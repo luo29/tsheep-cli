@@ -72,11 +72,17 @@ class GitServer {
     return null;
   }
 
-  runRepo(cwd, fullName) {
+  async runRepo(cwd, fullName) {
     const projectPath = getProjectPath(cwd, fullName);
     const pkg = getPackageJson(cwd, fullName);
     if (pkg) {
-      const { scripts } = pkg;
+      const { scripts, bin, name } = pkg;
+      if (bin) {
+        await execa("npm", ["install", "-g", name], {
+          cwd: projectPath,
+          stdout: "inherit",
+        });
+      }
       if (scripts && scripts.dev) {
         return execa("npm", ["run", "dev"], {
           cwd: projectPath,
