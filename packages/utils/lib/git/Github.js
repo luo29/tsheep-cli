@@ -14,6 +14,7 @@ class Github extends GitServer {
       (config) => {
         config.headers["Authorization"] = `Bearer ${this.token}`;
         config.headers["Accept"] = " application/vnd.github+json";
+        config.headers["X-GitHub-Api-Version"] = "2022-11-28";
         return config;
       },
       (error) => {
@@ -41,6 +42,18 @@ class Github extends GitServer {
 
   searchRepositories(params) {
     return this.get("/search/repositories", params);
+  }
+
+  searchCode(params) {
+    return this.get("/search/code", params);
+  }
+
+  getTags(fullName, params) {
+    return this.get(`/repos/${fullName}/tags`, params);
+  }
+
+  getRepoUrl(fullName) {
+    return `https://github.com/${fullName}.git`;
   }
 }
 

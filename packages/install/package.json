@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/luo29/tsheep-cli/issues"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "ora": "^7.0.1"
+  }
 }

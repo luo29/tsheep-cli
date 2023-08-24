@@ -2,6 +2,7 @@ import path from "node:path";
 import fs from "node:fs";
 import { homedir, platform } from "node:os";
 import { pathExistsSync } from "path-exists";
+import { execa } from "execa";
 import fse from "fs-extra";
 import { makePassword } from "../inquirer.js";
 import { log } from "@tsheep.com/utils";
@@ -47,8 +48,60 @@ class GitServer {
   }
 
   savePlatform(platform) {
+    this.platform = platform;
     fs.writeFileSync(createPlatformPath(), platform);
   }
+
+  getPlatform() {
+    return this.platform;
+  }
+
+  cloneRepo(fullName, tag) {
+    if (tag) {
+      return execa("git", ["clone", this.getRepoUrl(fullName), "-b", tag]);
+    } else {
+      return execa("git", ["clone", this.getRepoUrl(fullName)]);
+    }
+  }
+
+  installDependencies(cwd, fullName) {
+    const projectPath = getProjectPath(cwd, fullName);
+    if (pathExistsSync(projectPath)) {
+      return execa("npm", ["install"], { cwd: projectPath });
+    }
+    return null;
+  }
+
+  runRepo(cwd, fullName) {
+    const projectPath = getProjectPath(cwd, fullName);
+    const pkg = getPackageJson(cwd, fullName);
+    if (pkg) {
+      const { scripts } = pkg;
+      if (scripts && scripts.dev) {
+        return execa("npm", ["run", "dev"], {
+          cwd: projectPath,
+          stdout: "inherit",
+        });
+      } else if (scripts && scripts.start) {
+        return execa("npm", ["start"], { cwd: projectPath, stdout: "inherit" });
+      } else {
+        log.warn("未找到启动命令！");
+      }
+    }
+  }
+}
+
+function getPackageJson(cwd, fullName) {
+  const projectPath = getProjectPath(cwd, fullName);
+  const pkgPath = path.resolve(projectPath, "package.json");
+  if (pathExistsSync(pkgPath)) {
+    return fse.readJSONSync(pkgPath);
+  }
+}
+
+function getProjectPath(cwd, fullName) {
+  const projectName = fullName.split("/")[1];
+  return path.resolve(cwd, projectName);
 }
 
 export { GitServer, getGitPlatform };
