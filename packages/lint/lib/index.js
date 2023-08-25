@@ -1,9 +1,11 @@
+import path from "node:path";
 import Command from "@tsheep.com/command";
-import { log, printErrorLog } from "@tsheep.com/utils";
+import { log, makeList, printErrorLog } from "@tsheep.com/utils";
 import { ESLint } from "eslint";
 import { execa } from "execa";
 import ora from "ora";
 import jest from "jest";
+import Mocha, { test } from "mocha";
 import vueConfig from "./eslint/vueConfig.js";
 
 /**
@@ -20,7 +22,6 @@ class LintCommand extends Command {
   get options() {
     return [];
   }
-
   extractESlint(resultText, type) {
     const problems = /[0-9]+ problems/;
     const warnings = /([0-9]+) warnings/;
@@ -49,9 +50,26 @@ class LintCommand extends Command {
   }
 
   async action() {
-    log.verbose("lint");
     // 1.eslint
-    // 准备安装依赖
+    await this.eslintAction();
+    const testMode = await makeList({
+      choices: [
+        { name: "jest", value: "jest" },
+        { name: "mocha", value: "mocha" },
+      ],
+      message: "请选择测试模型",
+    });
+    if (testMode === "jest") {
+      // 2.jest
+      await this.jestAction();
+    } else {
+      // 3.mocha
+      await this.mochaAction();
+    }
+  }
+
+  async eslintAction() {
+    log.verbose("lint");
     const spinner = ora("正在安装ESlint相关依赖").start();
     try {
       await execa("npm", ["install", "-D", "eslint-plugin-vue"]);
@@ -75,10 +93,22 @@ class LintCommand extends Command {
       "错误：" + eslintResult.errors,
       "，警告：" + eslintResult.warnings
     );
-    // 2.jest/mocha
-    log.info("自动执行jest测试")
+  }
+
+  async jestAction() {
+    log.info("自动执行jest测试");
     await jest.run("test");
-    log.success('jest测试执行成功')
+    log.success("jest测试执行成功");
+  }
+
+  async mochaAction() {
+    const cwd = process.cwd();
+    log.info("自动执行mocha测试");
+    const mochaInstance = new Mocha();
+    mochaInstance.addFile(path.resolve(cwd, "__tests__/mocha_test.js"));
+    mochaInstance.run(() => {
+      log.success("mocha测试执行完毕");
+    });
   }
 }
 function Lint(instance) {
