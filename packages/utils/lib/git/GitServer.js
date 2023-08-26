@@ -5,7 +5,7 @@ import { pathExistsSync } from "path-exists";
 import { execa } from "execa";
 import fse from "fs-extra";
 import { makePassword } from "../inquirer.js";
-import { log } from "@tsheep.com/utils";
+import log from "../log.js";
 
 const TEMP_HOME = ".tsheep-cli";
 const TEMP_TOKEN = ".token";

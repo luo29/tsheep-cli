@@ -6,6 +6,7 @@ import request from "./request.js";
 import Github from "./git/Github.js";
 import Gitee from "./git/Gitee.js";
 import { getGitPlatform } from "./git/GitServer.js";
+import { initGitServer } from "./git/GitUtils.js";
 
 export function printErrorLog(e, type) {
   if (isDebug()) {
@@ -25,4 +26,5 @@ export {
   Github,
   Gitee,
   getGitPlatform,
+  initGitServer,
 };

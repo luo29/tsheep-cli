@@ -2,12 +2,11 @@ import ora from "ora";
 import Command from "@tsheep.com/command";
 import {
   log,
-  Github,
-  Gitee,
   makeList,
-  getGitPlatform,
+  initGitServer,
   makeInput,
   printErrorLog,
+  getGitPlatform,
 } from "@tsheep.com/utils";
 
 const PREV_PAGE = "${prev_page}";
@@ -75,37 +74,12 @@ class InstallCommand extends Command {
   }
 
   async generateGitAPI() {
-    let platform = getGitPlatform();
-    if (!platform) {
-      platform = await makeList({
-        message: "请选择Git平台",
-        choices: [
-          {
-            name: "Github",
-            value: "github",
-          },
-          {
-            name: "Gitee",
-            value: "gitee",
-          },
-        ],
-      });
-    }
-    log.verbose("plarform", platform);
-    let gitAPI;
-    if (platform === "github") {
-      gitAPI = new Github();
-    } else {
-      gitAPI = new Gitee();
-    }
-    gitAPI.savePlatform(platform);
-    await gitAPI.init();
-    this.gitAPI = gitAPI;
+    this.gitAPI = await initGitServer();
   }
 
   async searchGitAPI() {
     // 1.收集搜索关键词和开发语言
-    const platform = this.gitAPI.getPlatform();
+    const platform = getGitPlatform();
     if (platform === "github") {
       this.mode = await makeList({
         message: "请选择搜索的模式",
@@ -141,7 +115,7 @@ class InstallCommand extends Command {
     await this.doSearch();
   }
   async doSearch() {
-    const platform = this.gitAPI.getPlatform();
+    const platform = getGitPlatform();
     let searchResult;
     let count;
     let list = [];
@@ -241,7 +215,7 @@ class InstallCommand extends Command {
     let tagsList;
     this.tagPage = 1;
     this.tarPerPage = 30;
-    if (this.gitAPI.getPlatform() === "github") {
+    if (getGitPlatform() === "github") {
       tagsList = await this.doSelectTags();
     } else {
       // gitee 查询tags
@@ -250,7 +224,7 @@ class InstallCommand extends Command {
   }
 
   async doSelectTags() {
-    const plarform = this.gitAPI.getPlatform();
+    const plarform = getGitPlatform();
     let tagsListChoices = [];
     if (plarform === "github") {
       const params = {
