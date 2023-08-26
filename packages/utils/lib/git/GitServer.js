@@ -8,8 +8,10 @@ import { makePassword } from "../inquirer.js";
 import log from "../log.js";
 
 const TEMP_HOME = ".tsheep-cli";
-const TEMP_TOKEN = ".token";
+const TEMP_TOKEN = ".git_token";
 const TEMP_PLATFORM = ".git_platform";
+const TEMP_OWN = ".git_own";
+const TEMP_LOGIN = ".git_login";
 
 function createTokenPath() {
   return path.resolve(homedir(), TEMP_HOME, TEMP_TOKEN);
@@ -19,9 +21,31 @@ function createPlatformPath() {
   return path.resolve(homedir(), TEMP_HOME, TEMP_PLATFORM);
 }
 
+function createOwnPath() {
+  return path.resolve(homedir(), TEMP_HOME, TEMP_OWN);
+}
+
+function createLoginPath() {
+  return path.resolve(homedir(), TEMP_HOME, TEMP_LOGIN);
+}
+
 function getGitPlatform() {
   if (pathExistsSync(createPlatformPath())) {
     return fs.readFileSync(createPlatformPath()).toString();
+  }
+  return null;
+}
+
+function getGitOwn() {
+  if (pathExistsSync(createOwnPath())) {
+    return fs.readFileSync(createOwnPath()).toString();
+  }
+  return null;
+}
+
+function getGitLogin() {
+  if (pathExistsSync(createLoginPath())) {
+    return fs.readFileSync(createLoginPath()).toString();
   }
   return null;
 }
@@ -52,8 +76,26 @@ class GitServer {
     fs.writeFileSync(createPlatformPath(), platform);
   }
 
+  saveOwn(own) {
+    this.own = own;
+    fs.writeFileSync(createOwnPath(), own);
+  }
+
+  saveLogin(login) {
+    this.login = login;
+    fs.writeFileSync(createLoginPath(), login);
+  }
+
   getPlatform() {
     return this.platform;
+  }
+
+  getOwn() {
+    return this.own;
+  }
+
+  getLogin() {
+    return this.login;
   }
 
   cloneRepo(fullName, tag) {
@@ -95,6 +137,14 @@ class GitServer {
       }
     }
   }
+
+  getUser() {
+    throw new Error("getUser must be implemented!");
+  }
+
+  getOrg() {
+    throw new Error("getOrg must be implemented!");
+  }
 }
 
 function getPackageJson(cwd, fullName) {
@@ -110,4 +160,15 @@ function getProjectPath(cwd, fullName) {
   return path.resolve(cwd, projectName);
 }
 
-export { GitServer, getGitPlatform };
+function clearCache() {
+  const plarform = createPlatformPath();
+  const token = createTokenPath();
+  const own = createOwnPath();
+  const login = createLoginPath();
+  fse.removeSync(plarform);
+  fse.removeSync(token);
+  fse.removeSync(own);
+  fse.removeSync(login);
+}
+
+export { GitServer, getGitPlatform, clearCache, getGitOwn, getGitLogin };
