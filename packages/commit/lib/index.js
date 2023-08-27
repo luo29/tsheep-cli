@@ -60,14 +60,25 @@ class CommitCommand extends Command {
     );
     // 初始化git对象
     this.git = SimpleGit(process.cwd());
-    await this.git.init();
-    log.success("完成git初始化");
+    const gitDir = path.resolve(process.cwd(), ".git");
+    if (!fs.existsSync(gitDir)) {
+      await this.git.init();
+      log.success("完成git初始化");
+    }
     // 获取所有得remotes
     const remotes = await this.git.getRemotes();
     if (!remotes.find((remote) => remote.name === "origin")) {
       this.git.addRemote("origin", remoteUrl);
       log.success("添加git remote", remoteUrl);
     }
+    const status = await this.git.status();
+    // 拉取远程master分支
+    await this.git.pull("origin", "master").catch((err) => {
+      log.verbose("git pull origin master", err.message);
+      if (err.message.indexOf("couldn't find remote ref master") >= 0) {
+        log.warn("获取远程[master]分支失败！");
+      }
+    });
   }
 }
 
