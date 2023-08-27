@@ -1,5 +1,7 @@
+import fs from "node:fs";
 import path from "node:path";
 import fse from "fs-extra";
+import SimpleGit from "simple-git";
 import Command from "@tsheep.com/command";
 import {
   log,
@@ -27,6 +29,7 @@ class CommitCommand extends Command {
       clearCache();
     }
     await this.createRemoteRepo();
+    await this.initLocal();
   }
 
   // 阶段1：创建远程仓库
@@ -38,7 +41,33 @@ class CommitCommand extends Command {
     // 3.创建远程仓库
     const dir = process.cwd();
     const pkg = fse.readJSONSync(path.resolve(dir, "package.json"));
-    await createRemoteRepo(this.gitAPI, pkg.name);
+    this.name = pkg.name;
+    await createRemoteRepo(this.gitAPI, this.name);
+    // 4.生成.gitignore
+    const gitIgnorePath = path.resolve(dir, ".gitignore");
+    if (!fs.existsSync(gitIgnorePath)) {
+      log.info(".gitignore 文件开始创建");
+      fs.writeFileSync(gitIgnorePath, "node_modules");
+      log.success(".gitignore 创建成功！");
+    }
+  }
+
+  // 阶段2：git本地初始化
+  async initLocal() {
+    // 生成git remote 地址
+    const remoteUrl = await this.gitAPI.getRepoUrl(
+      `${this.gitAPI.login}/${this.name}`
+    );
+    // 初始化git对象
+    this.git = SimpleGit(process.cwd());
+    await this.git.init();
+    log.success("完成git初始化");
+    // 获取所有得remotes
+    const remotes = await this.git.getRemotes();
+    if (!remotes.find((remote) => remote.name === "origin")) {
+      this.git.addRemote("origin", remoteUrl);
+      log.success("添加git remote", remoteUrl);
+    }
   }
 }
 
