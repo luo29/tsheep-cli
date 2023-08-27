@@ -1,5 +1,6 @@
 import axios from "axios";
 import { GitServer } from "./GitServer.js";
+import log from "../log.js";
 
 const BASE_URL = "https://api.github.com";
 
@@ -38,7 +39,17 @@ class Github extends GitServer {
       headers,
     });
   }
-  post() {}
+  post(url, data, headers) {
+    return this.service({
+      url,
+      data,
+      params: {
+        access_token: this.token,
+      },
+      method: "post",
+      headers,
+    });
+  }
 
   searchRepositories(params) {
     return this.get("/search/repositories", params);
@@ -62,6 +73,42 @@ class Github extends GitServer {
 
   getOrg() {
     return this.get("/user/orgs");
+  }
+
+  getRepo(owner, repo) {
+    return this.get(`/repos/${owner}/${repo}`, {
+      accept: "application/vnd.github+json",
+    }).catch((err) => {
+      return null;
+    });
+  }
+
+  async createRepo(name) {
+    const repo = await this.getRepo(this.login, name);
+    if (!repo) {
+      log.info("仓库不存在，开始创建");
+      if (this.own === "user") {
+        return this.post(
+          "/user/repos",
+          { name },
+          {
+            accept: "application/vnd.github+json",
+          }
+        );
+      } else if (this.own === "org") {
+        const url = "orgs/" + this.login + "/repos";
+        return this.post(
+          url,
+          { name },
+          {
+            accept: "application/vnd.github+json",
+          }
+        );
+      }
+    } else {
+      log.info("仓库存在，直接返回");
+      return repo;
+    }
   }
 }
 

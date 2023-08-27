@@ -145,6 +145,10 @@ class GitServer {
   getOrg() {
     throw new Error("getOrg must be implemented!");
   }
+
+  createRepo() {
+    throw new Error("createRepo must be implemented!");
+  }
 }
 
 function getPackageJson(cwd, fullName) {

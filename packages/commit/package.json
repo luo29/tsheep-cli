@@ -23,6 +23,8 @@
   "bugs": {
     "url": "https://github.com/luo29/tsheep-cli/issues"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "fs-extra": "^11.1.1"
+  }
 }
-

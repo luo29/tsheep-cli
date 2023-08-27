@@ -72,13 +72,17 @@ export async function initGitType(gitAPI) {
       });
     }
     log.verbose("gitLogin", gitLogin);
-    gitAPI.saveOwn(gitOwn);
-    gitAPI.saveLogin(gitLogin);
   }
   if (!gitLogin || !gitOwn) {
     throw new Error(
       `为获取到用户的Git登录信息！请使用 "t-tsheep commit --clear" 清除缓存后重试`
     );
   }
+  gitAPI.saveOwn(gitOwn);
+  gitAPI.saveLogin(gitLogin);
   return gitLogin;
+}
+
+export async function createRemoteRepo(gitAPI, name) {
+  const ret = await gitAPI.createRepo(name);
 }
