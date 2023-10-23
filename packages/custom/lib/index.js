@@ -42,14 +42,7 @@ class CustomCommand extends Command {
 
     // 创建远程仓库
     await this.gitAPI.createCustomRepo(this.name)
-    // 创建README.md文件
-    const dir = process.cwd();
-    const gitREADME = path.resolve(dir, "README.md");
-    if (!fs.existsSync(gitREADME)) {
-      log.info("README.md 文件开始创建");
-      fs.writeFileSync(gitREADME,"test");
-      log.success("README.md 文件创建成功");
-    }
+   
   }
   async initLocal() {
     // 生成git remote 地址
@@ -61,7 +54,6 @@ class CustomCommand extends Command {
     this.git = SimpleGit(process.cwd());
     const gitDir = path.resolve(process.cwd(), ".git");
     console.log(gitDir);
-    await execa("git" ["branch","-m" ,"master","main"])
     if (!fs.existsSync(gitDir)) {
       await this.git.init();
       log.success("完成git初始化");
@@ -72,14 +64,21 @@ class CustomCommand extends Command {
       this.git.addRemote("origin", remoteUrl);
       log.success("添加git remote", remoteUrl);
     }
-    // const status = await this.git.status();
-    // 拉取远程master分支
-    await this.git.pull("origin", "main").catch((err) => {
-      log.verbose("git pull origin main", err.message);
-      if (err.message.indexOf("couldn't find remote ref main") >= 0) {
-        log.warn("获取远程[main]分支失败！");
-      }
-    });
+     // 创建README.md文件
+     const dir = process.cwd();
+     const gitREADME = path.resolve(dir, "README.md");
+     if (!fs.existsSync(gitREADME)) {
+       log.info("README.md 文件开始创建");
+       fs.writeFileSync(gitREADME,"test");
+       log.success("README.md 文件创建成功");
+     }
+    await this.git.add("README.md")
+    await this.git.commit("test")
+    await this.git.branch(["-m","master",'main'])
+    setTimeout(()=> {
+       this.git.push(remoteUrl,"main")
+
+    },1000)
   }
 }
 function Custom(instance) {
