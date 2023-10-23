@@ -3,6 +3,7 @@ import createInstallCommand from "@tsheep.com/install";
 import createCLI from "./createCLI.js";
 import createLintCommand from "@tsheep.com/lint";
 import createCommitCommand from "@tsheep.com/commit";
+import createCustomCommand from "@tsheep.com/custom";
 import "./exception.js";
 
 export default function (argv) {
@@ -11,5 +12,6 @@ export default function (argv) {
   createInstallCommand(program);
   createLintCommand(program);
   createCommitCommand(program);
+  createCustomCommand(program)
   program.parse(process.argv);
 }
