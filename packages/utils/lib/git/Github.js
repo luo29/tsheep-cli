@@ -88,6 +88,7 @@ class Github extends GitServer {
     if (!repo) {
       log.info("仓库不存在，开始创建");
       if (this.own === "user") {
+        console.log("uer");
         return this.post(
           "/user/repos",
           { name },

@@ -28,12 +28,12 @@ class CommitCommand extends Command {
     if (clear) {
       clearCache();
     }
-    await this.createRemoteRepo();
+    await this.createRemoteRepoe();
     await this.initLocal();
   }
 
   // 阶段1：创建远程仓库
-  async createRemoteRepo() {
+  async createRemoteRepoe() {
     // 1.实例化Git对象
     this.gitAPI = await initGitServer();
     // 2.仓库类型选择
