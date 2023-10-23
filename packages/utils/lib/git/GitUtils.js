@@ -5,7 +5,6 @@ import Gitee from "./Gitee.js";
 import { getGitPlatform, getGitLogin, getGitOwn } from "./GitServer.js";
 
 export async function initGitServer() {
-  console.log("选择平台");
   let platform = getGitPlatform();
   log.verbose("plarform", platform);
   if (!platform) {
@@ -82,6 +81,7 @@ export async function initGitType(gitAPI) {
   }
   gitAPI.saveOwn(gitOwn);
   gitAPI.saveLogin(gitLogin);
+  console.log(gitLogin,"212");
   return gitLogin;
 }
 

@@ -88,7 +88,6 @@ class Github extends GitServer {
     if (!repo) {
       log.info("仓库不存在，开始创建");
       if (this.own === "user") {
-        console.log("uer");
         return this.post(
           "/user/repos",
           { name },
@@ -107,6 +106,24 @@ class Github extends GitServer {
         );
       }
     } else {
+      log.info("仓库存在，直接返回");
+      return repo;
+    }
+  }
+  async createCustomRepo(name){
+    console.log(name,"212");
+    const repo = await this.getRepo(this.login, name);
+    if(!repo){
+      log.info("仓库不存在，开始创建");
+      console.log(repo);
+      return this.post(
+        "/user/repos",
+        { name },
+        {
+          accept: "application/vnd.github+json",
+        }
+      );
+    }else {
       log.info("仓库存在，直接返回");
       return repo;
     }

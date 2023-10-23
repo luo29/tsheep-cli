@@ -149,6 +149,9 @@ class GitServer {
   createRepo() {
     throw new Error("createRepo must be implemented!");
   }
+  createCustomRepo() {
+    throw new Error("createCustomRepo must be implemented!");
+  }
 }
 
 function getPackageJson(cwd, fullName) {
