@@ -5,7 +5,9 @@ import Gitee from "./Gitee.js";
 import { getGitPlatform, getGitLogin, getGitOwn } from "./GitServer.js";
 
 export async function initGitServer() {
+  console.log("选择平台");
   let platform = getGitPlatform();
+  log.verbose("plarform", platform);
   if (!platform) {
     platform = await makeList({
       message: "请选择Git平台",
