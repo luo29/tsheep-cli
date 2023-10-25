@@ -18,13 +18,15 @@
     "url": "git+https://github.com/luo29/tsheep-cli.git"
   },
   "scripts": {
-    "test": "node ./__tests__/custom.test.js"
+    "test": "node ./__tests__/custom.test.js",
+    "tsc":"tsc"
   },
   "bugs": {
     "url": "https://github.com/luo29/tsheep-cli/issues"
   },
   "type": "module",
   "dependencies": {
-    "execa": "^8.0.1"
+    "execa": "^8.0.1",
+    "typescript": "^5.2.2"
   }
 }

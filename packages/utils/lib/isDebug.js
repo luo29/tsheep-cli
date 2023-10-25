@@ -1,3 +1,4 @@
 export default function isDebug() {
-  return process.argv.includes("--debug") || process.argv.includes("-d");
+    return process.argv.includes("--debug") || process.argv.includes("-d");
 }
+//# sourceMappingURL=isDebug.js.map

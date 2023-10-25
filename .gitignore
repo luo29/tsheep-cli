@@ -1,1 +1,3 @@
 node_modules/
+packages/cli/bin
+packages/cli/lib

@@ -18,7 +18,8 @@
     "url": "git+https://github.com/luo29/tsheep-cli.git"
   },
   "scripts": {
-    "test": "node ./__tests__/commit.test.js"
+    "test": "node ./__tests__/commit.test.js",
+    "tsc":"tsc"
   },
   "bugs": {
     "url": "https://github.com/luo29/tsheep-cli/issues"
@@ -26,6 +27,7 @@
   "type": "module",
   "dependencies": {
     "fs-extra": "^11.1.1",
-    "simple-git": "^3.19.1"
+    "simple-git": "^3.19.1",
+    "typescript": "^5.2.2"
   }
 }

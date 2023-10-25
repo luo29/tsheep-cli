@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+      "module": "ESNext",
+      "declaration": true,
+      "noImplicitAny": false,
+      "removeComments": true,
+      "noLib": false,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "target": "es6",
+      "sourceMap": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "lib": [
+        "ES2015",
+      ],
+      "moduleResolution": "node",
+    },
+    "allowImportingTsExtensions":"Enabled",
+
+    "exclude": [
+      "node_modules",
+      "**/*.spec.ts"
+    ],
+    
+   }
+   

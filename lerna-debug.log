@@ -1,0 +1,25 @@
+0 silly argv { _: [ 'run' ], lernaVersion: '7.1.5', '$0': 'lerna', script: 'tsc' }
+1 notice cli v7.1.5
+2 verbose packageConfigs Resolving packages based on package.json "workspaces" configuration.
+3 verbose rootPath /home/xiezhiyang/tsheep/tsheep-cli
+4 error Error: Cannot find module '@nx/nx-linux-x64-gnu'
+4 error Require stack:
+4 error - /home/xiezhiyang/tsheep/tsheep-cli/node_modules/nx/src/native/index.js
+4 error - /home/xiezhiyang/tsheep/tsheep-cli/node_modules/nx/src/project-graph/utils/retrieve-workspace-files.js
+4 error - /home/xiezhiyang/tsheep/tsheep-cli/node_modules/nx/src/utils/nx-plugin.js
+4 error - /home/xiezhiyang/tsheep/tsheep-cli/node_modules/nx/src/config/workspaces.js
+4 error - /home/xiezhiyang/tsheep/tsheep-cli/node_modules/nx/src/config/configuration.js
+4 error - /home/xiezhiyang/tsheep/tsheep-cli/node_modules/nx/src/daemon/client/client.js
+4 error - /home/xiezhiyang/tsheep/tsheep-cli/node_modules/lerna/dist/index.js
+4 error - /home/xiezhiyang/tsheep/tsheep-cli/node_modules/lerna/dist/cli.js
+4 error - /home/xiezhiyang/.nvm/versions/node/v18.17.1/lib/node_modules/lerna/node_modules/import-local/index.js
+4 error - /home/xiezhiyang/.nvm/versions/node/v18.17.1/lib/node_modules/lerna/dist/cli.js
+4 error     at Module._resolveFilename (node:internal/modules/cjs/loader:1077:15)
+4 error     at Module._load (node:internal/modules/cjs/loader:922:27)
+4 error     at Module.require (node:internal/modules/cjs/loader:1143:19)
+4 error     at require (node:internal/modules/cjs/helpers:121:18)
+4 error     at Object.<anonymous> (/home/xiezhiyang/tsheep/tsheep-cli/node_modules/nx/src/native/index.js:184:31)
+4 error     at Module._compile (node:internal/modules/cjs/loader:1256:14)
+4 error     at Module._extensions..js (node:internal/modules/cjs/loader:1310:10)
+4 error     at Module.load (node:internal/modules/cjs/loader:1119:32)
+4 error     at Module._load (node:internal/modules/cjs/loader:960:12)

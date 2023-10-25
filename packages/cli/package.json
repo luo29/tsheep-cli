@@ -18,7 +18,8 @@
     "bin"
   ],
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "tsc":"tsc"
   },
   "dependencies": {
     "@babel/core": "^7.22.10",
@@ -28,7 +29,8 @@
     "dirname-filename-esm": "^1.1.1",
     "fs-extra": "^11.1.1",
     "import-local": "^3.1.0",
-    "semver": "^7.5.4"
+    "semver": "^7.5.4",
+    "typescript": "^5.2.2"
   },
   "devDependencies": {
     "execa": "^7.2.0",
