@@ -1,4 +1,5 @@
 class Command {
+    program: any;
     constructor(instance) {
       if (!instance) {
         throw new Error("command instance must not be null!");
@@ -21,6 +22,9 @@ class Command {
         this.action(params);
       });
     }
+  action(params: any[]) {
+    throw new Error("Method not implemented.");
+  }
     get command() {
       throw new Error("command must be implements");
     }
@@ -30,9 +34,9 @@ class Command {
     get options() {
       return [];
     }
-    get action() {
-      throw new Error("action must be implements");
-    }
+    // get action() {
+    //   throw new Error("action must be implements");
+    // }
     preAction() {
       // empty
     }

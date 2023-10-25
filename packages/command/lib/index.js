@@ -22,6 +22,9 @@ class Command {
             this.action(params);
         });
     }
+    action(params) {
+        throw new Error("Method not implemented.");
+    }
     get command() {
         throw new Error("command must be implements");
     }
@@ -30,9 +33,6 @@ class Command {
     }
     get options() {
         return [];
-    }
-    get action() {
-        throw new Error("action must be implements");
     }
     preAction() {
     }

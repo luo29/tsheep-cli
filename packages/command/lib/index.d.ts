@@ -1,9 +1,10 @@
 declare class Command {
+    program: any;
     constructor(instance: any);
+    action(params: any[]): void;
     get command(): void;
     get description(): void;
     get options(): any[];
-    get action(): void;
     preAction(): void;
     postAction(): void;
 }
