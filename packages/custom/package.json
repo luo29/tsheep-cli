@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/luo29/tsheep-cli/issues"
   },
-  "type": "module",
+  "type": "commonjs",
   "dependencies": {
     "execa": "^8.0.1",
     "typescript": "^5.2.2"

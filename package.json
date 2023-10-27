@@ -6,9 +6,11 @@
   ],
   "dependencies": {
     "@nx/nx-linux-x64-gnu": "^17.0.1",
+    "browserify-fs": "^1.0.0",
     "commander": "^11.0.0",
     "import-local": "^3.1.0",
-    "npmlog": "^7.0.1"
+    "npmlog": "^7.0.1",
+    "path-browserify": "^1.0.1"
   },
   "devDependencies": {
     "fork-ts-checker-webpack-plugin": "^9.0.0",
