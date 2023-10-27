@@ -8,11 +8,19 @@
     "@nx/nx-linux-x64-gnu": "^17.0.1",
     "commander": "^11.0.0",
     "import-local": "^3.1.0",
-    "npmlog": "^7.0.1",
-    "typescript": "^5.2.2"
+    "npmlog": "^7.0.1"
   },
   "devDependencies": {
-    "lerna": "^7.1.5"
+    "fork-ts-checker-webpack-plugin": "^9.0.0",
+    "lerna": "^7.1.5",
+    "ts-loader": "^9.5.0",
+    "typescript": "^5.2.2",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "scripts": {
+    "build": "webpack"
   },
   "type": "module"
 }
