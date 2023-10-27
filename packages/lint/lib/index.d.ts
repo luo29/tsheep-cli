@@ -1,7 +1,7 @@
 import Command from "@tsheep.com/command";
 declare class LintCommand extends Command {
-    get command(): string;
-    get description(): string;
+    get command(): void;
+    get description(): void;
     get options(): any[];
     extractESlint(resultText: any, type: any): any;
     parseESlintResult(resultText: any): {

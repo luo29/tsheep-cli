@@ -11,7 +11,7 @@ function make({
   pageSize,
   loop,
 }) {
-  const options = {
+  const options:any = {
     name: "name",
     defaultValue: defaultValue,
     message,

@@ -15,13 +15,25 @@ const SEARCH_MODE_REPO = "search_repo";
 const SEARCH_MODE_CODE = "search_code";
 
 class InstallCommand extends Command {
+  page: number;
+  keyword: any;
+  selectedTag: any;
+  gitAPI: any;
+  mode: any;
+  language: any;
+  per_page: number;
+  q: string;
+  tagPage: number;
+  tarPerPage: number;
   get command() {
-    return "install";
+    return ;
   }
   get description() {
-    return "install project";
+    return ;
   }
-  get option() {}
+  get option() {
+    return []
+  }
   async action() {
     await this.generateGitAPI();
     await this.searchGitAPI();
@@ -43,7 +55,7 @@ class InstallCommand extends Command {
       log.success(`下载成功${this.keyword}(${this.selectedTag})`);
     } catch (e) {
       spinner.stop();
-      printErrorLog(e);
+      printErrorLog(e,null);
     }
   }
 
@@ -59,13 +71,13 @@ class InstallCommand extends Command {
       );
       spinner.stop();
       if (!ret) {
-        printErrorLog(`依赖安装失败${this.keyword}(${this.selectedTag})`);
+        printErrorLog(`依赖安装失败${this.keyword}(${this.selectedTag})`,null);
       } else {
         log.success(`依赖安装成功${this.keyword}(${this.selectedTag})`);
       }
     } catch (e) {
       spinner.stop();
-      printErrorLog(e);
+      printErrorLog(e,null);
     }
   }
 
@@ -148,7 +160,7 @@ class InstallCommand extends Command {
       count = searchResult.total_count;
     } else {
       // gitee
-      const params = {
+      const params:any = {
         q: this.q,
         // language: this.language,
         order: "desc",

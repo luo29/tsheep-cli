@@ -1,5 +1,6 @@
 import { GitServer } from "./GitServer.js";
 declare class Github extends GitServer {
+    service: any;
     constructor();
     get(url: any, params: any, headers: any): any;
     post(url: any, data: any, headers: any): any;

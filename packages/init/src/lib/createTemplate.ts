@@ -68,13 +68,13 @@ async function getTemplateFromApi() {
     log.info("template", data);
     return data;
   } catch (e) {
-    printErrorLog(e);
+    printErrorLog(e,null);
     return null;
   }
 }
 
 export default async function createTemplate(name, opts) {
-  const ADD_TEMPLATE = await getTemplateFromApi();
+  const ADD_TEMPLATE:any = await getTemplateFromApi();
   if (!ADD_TEMPLATE) {
     throw new Error("项目模板不存在！");
   }

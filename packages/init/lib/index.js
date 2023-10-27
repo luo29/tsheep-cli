@@ -15,10 +15,10 @@ import downloadTemplate from "./downloadTemplate.js";
 import installTemplate from "./installTemplate.js";
 class InitCommand extends Command {
     get command() {
-        return "init [name]";
+        return;
     }
     get description() {
-        return "init project";
+        return;
     }
     get options() {
         return [

@@ -33,6 +33,6 @@ export default async function downloadTemplate(selectedTemplate) {
     log.success("下载模板成功");
   } catch (e) {
     spinner.stop();
-    printErrorLog(e);
+    printErrorLog(e,null);
   }
 }

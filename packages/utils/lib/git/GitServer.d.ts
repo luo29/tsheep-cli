@@ -2,6 +2,10 @@ declare function getGitPlatform(): string;
 declare function getGitOwn(): string;
 declare function getGitLogin(): string;
 declare class GitServer {
+    token: any;
+    platform: any;
+    own: any;
+    login: any;
     constructor();
     init(): Promise<void>;
     getToken(): any;
@@ -12,12 +16,11 @@ declare class GitServer {
     getOwn(): any;
     getLogin(): any;
     cloneRepo(fullName: any, tag: any): import("execa").ExecaChildProcess<string>;
+    getRepoUrl(fullName: any): string;
     installDependencies(cwd: any, fullName: any): import("execa").ExecaChildProcess<string>;
     runRepo(cwd: any, fullName: any): Promise<import("execa").ExecaReturnValue<string>>;
     getUser(): void;
     getOrg(): void;
-    createRepo(): void;
-    createCustomRepo(): void;
 }
 declare function clearCache(): void;
 export { GitServer, getGitPlatform, clearCache, getGitOwn, getGitLogin };

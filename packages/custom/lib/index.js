@@ -15,12 +15,14 @@ import { log, initGitServer, initGitType } from "@tsheep.com/utils";
 import SimpleGit from "simple-git";
 class CustomCommand extends Command {
     get command() {
-        return "custom";
+        return;
     }
     get description() {
-        return "custom git";
+        return;
     }
-    get options() { }
+    get options() {
+        return [];
+    }
     action([name, opts]) {
         return __awaiter(this, void 0, void 0, function* () {
             this.gitAPI = yield initGitServer();

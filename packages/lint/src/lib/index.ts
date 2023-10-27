@@ -14,10 +14,10 @@ import vueConfig from "./eslint/vueConfig.js";
  */
 class LintCommand extends Command {
   get command() {
-    return "lint";
+    return ;
   }
   get description() {
-    return "lint project";
+    return ;
   }
   get options() {
     return [];
@@ -75,7 +75,7 @@ class LintCommand extends Command {
       await execa("npm", ["install", "-D", "eslint-plugin-vue"]);
       await execa("npm", ["install", "-D", "eslint-config-airbnb-base"]);
     } catch (e) {
-      printErrorLog(e);
+      printErrorLog(e,null);
     } finally {
       spinner.stop();
     }
@@ -97,7 +97,7 @@ class LintCommand extends Command {
 
   async jestAction() {
     log.info("自动执行jest测试");
-    await jest.run("test");
+    await jest.run(["test"]);
     log.success("jest测试执行成功");
   }
 

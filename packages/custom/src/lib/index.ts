@@ -11,13 +11,18 @@ import SimpleGit from "simple-git";
  * t-tsheep init aaa --type project -tp template-react18 --force
  */
 class CustomCommand extends Command {
+  gitAPI: any;
+  name: any;
+  git: any;
   get command() {
-    return "custom";
+    return ;
   }
   get description() {
-    return "custom git";
+    return ;
   }
-  get options() {}
+  get options() {
+    return []
+  }
   async action([name, opts]) {
     this.gitAPI = await initGitServer();
     const user = await this.gitAPI.getUser();

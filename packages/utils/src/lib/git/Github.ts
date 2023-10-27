@@ -5,6 +5,7 @@ import log from "../log.js";
 const BASE_URL = "https://api.github.com";
 
 class Github extends GitServer {
+  service: any;
   constructor() {
     super();
     this.service = axios.create({
@@ -52,15 +53,15 @@ class Github extends GitServer {
   }
 
   searchRepositories(params) {
-    return this.get("/search/repositories", params);
+    return this.get("/search/repositories", params,null);
   }
 
   searchCode(params) {
-    return this.get("/search/code", params);
+    return this.get("/search/code", params,null);
   }
 
   getTags(fullName, params) {
-    return this.get(`/repos/${fullName}/tags`, params);
+    return this.get(`/repos/${fullName}/tags`, params,null);
   }
 
   getRepoUrl(fullName) {
@@ -68,17 +69,17 @@ class Github extends GitServer {
   }
 
   getUser() {
-    return this.get("/user");
+    return this.get("/user",null,null);
   }
 
   getOrg() {
-    return this.get("/user/orgs");
+    return this.get("/user/orgs",null,null);
   }
 
   getRepo(owner, repo) {
     return this.get(`/repos/${owner}/${repo}`, {
       accept: "application/vnd.github+json",
-    }).catch((err) => {
+    },null).catch((err) => {
       return null;
     });
   }

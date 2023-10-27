@@ -62,7 +62,7 @@ function getTemplateFromApi() {
             return data;
         }
         catch (e) {
-            printErrorLog(e);
+            printErrorLog(e, null);
             return null;
         }
     });

@@ -16,12 +16,14 @@ const SEARCH_MODE_REPO = "search_repo";
 const SEARCH_MODE_CODE = "search_code";
 class InstallCommand extends Command {
     get command() {
-        return "install";
+        return;
     }
     get description() {
-        return "install project";
+        return;
     }
-    get option() { }
+    get option() {
+        return [];
+    }
     action() {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.generateGitAPI();
@@ -44,7 +46,7 @@ class InstallCommand extends Command {
             }
             catch (e) {
                 spinner.stop();
-                printErrorLog(e);
+                printErrorLog(e, null);
             }
         });
     }
@@ -55,7 +57,7 @@ class InstallCommand extends Command {
                 const ret = yield this.gitAPI.installDependencies(process.cwd(), this.keyword, this.selectedTag);
                 spinner.stop();
                 if (!ret) {
-                    printErrorLog(`依赖安装失败${this.keyword}(${this.selectedTag})`);
+                    printErrorLog(`依赖安装失败${this.keyword}(${this.selectedTag})`, null);
                 }
                 else {
                     log.success(`依赖安装成功${this.keyword}(${this.selectedTag})`);
@@ -63,7 +65,7 @@ class InstallCommand extends Command {
             }
             catch (e) {
                 spinner.stop();
-                printErrorLog(e);
+                printErrorLog(e, null);
             }
         });
     }

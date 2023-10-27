@@ -44,22 +44,22 @@ class Github extends GitServer {
         });
     }
     searchRepositories(params) {
-        return this.get("/search/repositories", params);
+        return this.get("/search/repositories", params, null);
     }
     getTags(fullName) {
-        return this.get(`/repos/${fullName}/tags`);
+        return this.get(`/repos/${fullName}/tags`, null, null);
     }
     getRepoUrl(fullName) {
         return `https://gitee.com/${fullName}.git`;
     }
     getUser() {
-        return this.get("/user");
+        return this.get("/user", null, null);
     }
     getOrg() {
-        return this.get("/user/orgs");
+        return this.get("/user/orgs", null, null);
     }
     getRepo(owner, repo) {
-        return this.get(`/repos/${owner}/${repo}`).catch((err) => {
+        return this.get(`/repos/${owner}/${repo}`, null, null).catch((err) => {
             return null;
         });
     }
@@ -69,11 +69,11 @@ class Github extends GitServer {
             if (!repo) {
                 log.info("仓库不存在，开始创建");
                 if (this.own === "user") {
-                    return this.post("/user/repos", { name });
+                    return this.post("/user/repos", { name }, null);
                 }
                 else if (this.own === "org") {
                     const url = "orgs/" + this.login + "/repos";
-                    return this.post(url, { name });
+                    return this.post(url, { name }, null);
                 }
             }
             else {

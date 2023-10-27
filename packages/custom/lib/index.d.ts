@@ -1,8 +1,11 @@
 import Command from "@tsheep.com/command";
 declare class CustomCommand extends Command {
-    get command(): string;
-    get description(): string;
-    get options(): void;
+    gitAPI: any;
+    name: any;
+    git: any;
+    get command(): void;
+    get description(): void;
+    get options(): any[];
     action([name, opts]: [any, any]): Promise<void>;
     preAction(): void;
     postAction(): void;

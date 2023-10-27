@@ -61,7 +61,7 @@ function ejsRender(targetPath, installDir, template, name) {
                         fse.writeFileSync(filePath, result);
                     }
                     else {
-                        printErrorLog(err);
+                        printErrorLog(err, null);
                     }
                 });
             });

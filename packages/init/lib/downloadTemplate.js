@@ -46,7 +46,7 @@ export default function downloadTemplate(selectedTemplate) {
         }
         catch (e) {
             spinner.stop();
-            printErrorLog(e);
+            printErrorLog(e, null);
         }
     });
 }

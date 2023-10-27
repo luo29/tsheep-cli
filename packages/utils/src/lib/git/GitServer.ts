@@ -51,6 +51,10 @@ function getGitLogin() {
 }
 
 class GitServer {
+  token: any;
+  platform: any;
+  own: any;
+  login: any;
   constructor() {}
 
   async init() {
@@ -105,6 +109,9 @@ class GitServer {
       return execa("git", ["clone", this.getRepoUrl(fullName)]);
     }
   }
+  getRepoUrl(fullName: any): string {
+    throw new Error("Method not implemented.");
+  }
 
   installDependencies(cwd, fullName) {
     const projectPath = getProjectPath(cwd, fullName);
@@ -146,12 +153,12 @@ class GitServer {
     throw new Error("getOrg must be implemented!");
   }
 
-  createRepo() {
-    throw new Error("createRepo must be implemented!");
-  }
-  createCustomRepo() {
-    throw new Error("createCustomRepo must be implemented!");
-  }
+  // createRepo() {
+  //   throw new Error("createRepo must be implemented!");
+  // }
+  // createCustomRepo() {
+  //   throw new Error("createCustomRepo must be implemented!");
+  // }
 }
 
 function getPackageJson(cwd, fullName) {

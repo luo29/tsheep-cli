@@ -1,7 +1,10 @@
 import Command from "@tsheep.com/command";
 declare class CommitCommand extends Command {
-    get command(): string;
-    get description(): string;
+    gitAPI: any;
+    name: any;
+    git: any;
+    get command(): void;
+    get description(): void;
     get options(): (string | boolean)[][];
     action([{ clear }]: [{
         clear: any;

@@ -1,4 +1,5 @@
 import { log, isDebug } from "@tsheep.com/utils";
+
 function printErrorLog(e, type) {
   if (isDebug()) {
     log.error(type, e);

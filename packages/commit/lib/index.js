@@ -17,10 +17,10 @@ const CACHE_DIR = ".tsheep-cli";
 const FILE_GIT_PLATFORM = ".git_platform";
 class CommitCommand extends Command {
     get command() {
-        return "commit";
+        return;
     }
     get description() {
-        return "commit project";
+        return;
     }
     get options() {
         return [["-c, --clear", "清空缓存", false]];

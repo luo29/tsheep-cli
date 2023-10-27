@@ -1,8 +1,18 @@
 import Command from "@tsheep.com/command";
 declare class InstallCommand extends Command {
-    get command(): string;
-    get description(): string;
-    get option(): void;
+    page: number;
+    keyword: any;
+    selectedTag: any;
+    gitAPI: any;
+    mode: any;
+    language: any;
+    per_page: number;
+    q: string;
+    tagPage: number;
+    tarPerPage: number;
+    get command(): void;
+    get description(): void;
+    get option(): any[];
     action(): Promise<void>;
     downloadRepo(): Promise<void>;
     installDependencies(): Promise<void>;
