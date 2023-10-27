@@ -76,3 +76,4 @@ function Custom(instance) {
   return new CustomCommand(instance);
 }
 export default Custom;
+console.log(213);

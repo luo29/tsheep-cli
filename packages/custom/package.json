@@ -19,7 +19,8 @@
   },
   "scripts": {
     "test": "node ./__tests__/custom.test.js",
-    "tsc":"tsc"
+    "tsc":"tsc --watch"
+ 
   },
   "bugs": {
     "url": "https://github.com/luo29/tsheep-cli/issues"
